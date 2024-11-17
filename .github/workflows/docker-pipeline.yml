@@ -1,0 +1,32 @@
+name: Node.js Docker Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build the Docker image
+      run: docker build -t my-node-backend .
+
+    - name: Run tests (optional)
+      run: npm test
+
+    - name: Run Docker container locally
+      run: |
+        docker run -d -p 3030:3030 --name my-node-backend-container my-node-backend
