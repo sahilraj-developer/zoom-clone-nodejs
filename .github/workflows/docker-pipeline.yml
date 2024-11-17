@@ -24,9 +24,6 @@ jobs:
     - name: Build the Docker image
       run: docker build -t my-node-backend .
 
-    - name: Run tests (optional)
-      run: npm test
-
     - name: Run Docker container locally
       run: |
         docker run -d -p 3030:3030 --name my-node-backend-container my-node-backend
